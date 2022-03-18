@@ -65,8 +65,8 @@ The skeleton code in a very interesting concept used in Emertxe. By looking into
 [Click here to download the source code for the address book project](https://www.emertxe.com/content/c-programming/code/addressbook_src.zip)
 
 ## Sample Output <a name="Sample"></a> <br>
-Here are the sample output expected by the end of project execution.
-![Sample Output](ample.png)
+
+![](ample.png)
  
  ![]()
  
