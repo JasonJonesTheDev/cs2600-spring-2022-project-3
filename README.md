@@ -68,8 +68,6 @@ The skeleton code in a very interesting concept used in Emertxe. By looking into
 
 ![](ample.png)
  
- ![]()
- 
 <br><br>
 
 
