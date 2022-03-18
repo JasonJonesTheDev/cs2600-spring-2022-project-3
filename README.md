@@ -66,7 +66,7 @@ The skeleton code in a very interesting concept used in Emertxe. By looking into
 
 ## Sample Output <a name="Sample"></a> <br>
 Here are the sample output expected by the end of project execution.
-![Sample Output](cs2600-spring-2022-project-3/ample.png)
+![Sample Output](ample.png)
  
  ![]()
  
