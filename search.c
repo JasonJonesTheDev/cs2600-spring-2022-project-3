@@ -30,10 +30,10 @@ int SearchContact(AddressBook* address_book, int count) {
         searchByPhone(addressBook, contactInfo, count);
         break;
         case 3:
-        searchByEmailId(addressBook);
+        searchByEmailId(addressBook, contactInfo, count);
         break;
         case 4:
-        searchBySerialNum(addressBook);
+        searchBySerialNum(addressBook, contactInfo, count);
         break;
         default:
         printf("Error: Please enter a valid option.\n");
@@ -43,45 +43,15 @@ int SearchContact(AddressBook* address_book, int count) {
    }
 }
 
-char targetName() {
+char searchByName(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
     char name;
     char targetName;
     printf("What name would you like to search for:\n");
     scanf("%s\n", name);
     targetName = name;
-    return targetName;
-}
 
-char targetPhone() {
-    char phone;
-    char targetPhone;
-    printf("What phone number would you like to search for:\n");
-    scanf("%s\n", phone);
-    targetPhone = phone;
-    return targetPhone;
-}
-
-char targetEmail() {
-    char email;
-    char targetEmail;
-    printf("What phone number would you like to search for:\n");
-    scanf("%s\n", email);
-    targetEmail = email;
-    return targetEmail;
-}
-
-int targetSerial() {
-    int serial;
-    int targetSerial;
-    printf("What serial number would you like to search for:\n");
-    scanf("%s\n", serial);
-    targetSerial = serial;
-    return targetSerial;
-}
-
-char searchByName(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
     for(; contactInfo < addressBook->count; addressBook++) {
-        if (strcmp(contactInfo->name, targetName()) == 0) {
+        if (strcmp(contactInfo->name, targetName) == 0) {
             printf("Name Search: %s\n", contactInfo->name);
             return contactInfo->name;
         }
@@ -91,8 +61,14 @@ char searchByName(AddressBook * addressBook, ContactInfo * contactInfo, int coun
 }
 
 char searchByPhone(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
+    char phone;
+    char targetPhone;
+    printf("What phone number would you like to search for:\n");
+    scanf("%s\n", phone);
+    targetPhone = phone;
+
     for(; contactInfo < addressBook->count; contactInfo++) {
-        if (strcmp(contactInfo->phone_numbers, targetPhone()) == 0) {
+        if (strcmp(contactInfo->phone_numbers, targetPhone) == 0) {
             printf("Phone Search: %s\n", contactInfo->phone_numbers);
             return contactInfo->phone_numbers;
         }
@@ -102,8 +78,14 @@ char searchByPhone(AddressBook * addressBook, ContactInfo * contactInfo, int cou
 }
 
 char searchByEmailId(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
+    char email;
+    char targetEmail;
+    printf("What phone number would you like to search for:\n");
+    scanf("%s\n", email);
+    targetEmail = email;
+    
     for(; contactInfo < addressBook->count; contactInfo++) {
-        if (strcmp(contactInfo->email_addresses, targetEmail()) == 0) {
+        if (strcmp(contactInfo->email_addresses, targetEmail) == 0) {
             printf("Email Address Search: %s\n", contactInfo->email_addresses);
             return contactInfo->email_addresses;
         }
@@ -113,8 +95,14 @@ char searchByEmailId(AddressBook * addressBook, ContactInfo * contactInfo, int c
 }
 
 int searchBySerialNum(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
+    int serial;
+    int targetSerial;
+    printf("What serial number would you like to search for:\n");
+    scanf("%s\n", serial);
+    targetSerial = serial;
+    
     for(; contactInfo < addressBook->count; contactInfo++) {
-        if (strcmp(contactInfo->si_no, targetSerial()) == 0) {
+        if (strcmp(contactInfo->si_no, targetSerial) == 0) {
             printf("Serial Number Search: %s\n", contactInfo->si_no);
             return contactInfo->si_no;
         }
