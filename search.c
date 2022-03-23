@@ -4,9 +4,11 @@
 #include "address_book.h"
 
 int SearchContact(AddressBook* address_book, int count) {
+    ContactInfo *name[NAME_COUNT][NAME_LEN];
     char choice;
 
-    ContactInfo * contactInfo = address_book -> list; 
+    ContactInfo * contactInfo = address_book -> list;
+    AddressBook * addressBook = address_book; 
 
    while(strcmp(choice,'0') != 0) {
         /* Select how to search the specific contact by name, by phone number, email id, or by serial number */
@@ -18,41 +20,57 @@ int SearchContact(AddressBook* address_book, int count) {
         printf("3. Email ID\n");
         printf("4. Serial No\n");
         prontf("Please select an option:\n "); 
-        scanf("%c", choice); 
+        scanf("%c", choice);
 
         switch(choice) {
         case 1:
-        searchByName(contactInfo);
+        targetName();
+        searchByName(addressBook, contactInfo, count);
         break;
         case 2:
-        searchByPhone(contactInfo);
+        searchByPhone(addressBook);
         break;
         case 3:
-        searchByEmailId(contactInfo);
+        searchByEmailId(addressBook);
         break;
         case 4:
-        searchBySerialNum(contactInfo);
+        searchBySerialNum(addressBook);
         break;
         default:
         printf("Error: Please enter a valid option.");
         goto selectSearch;
     }
+    
    }
 }
 
-char searchByName(ContactInfo * contactInfo) {
+char targetName() {
+    char name;
+    char targetName;
+    printf("What name would you like to search for:");
+    scanf("%c", name);
+    targetName = name;
+    return targetName;
+}
+
+char searchByName(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
+    for(; contactInfo < addressBook->count; addressBook++) {
+        if (strcmp(contactInfo->name, targetName()) == 0) {
+            printf("Name Search: %s", contactInfo);
+            return contactInfo;
+        }
+    }
+}
+
+char searchByPhone(AddressBook * addressBook) {
 
 }
 
-char searchByPhone(ContactInfo * contactInfo) {
+int searchByEmailId(AddressBook * addressBook) {
 
 }
 
-int searchByEmailId(ContactInfo * contactInfo) {
-
-}
-
-int searchBySerialNum(ContactInfo * contactInfo) {
+int searchBySerialNum(AddressBook * addressBook) {
 
 }
 
