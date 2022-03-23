@@ -24,7 +24,6 @@ int SearchContact(AddressBook* address_book, int count) {
 
         switch(choice) {
         case 1:
-        targetName();
         searchByName(addressBook, contactInfo, count);
         break;
         case 2:
@@ -69,6 +68,15 @@ char targetEmail() {
     scanf("%s\n", email);
     targetEmail = email;
     return targetEmail;
+}
+
+int targetSerial() {
+    int serial;
+    int targetSerial;
+    printf("What serial number would you like to search for:\n");
+    scanf("%s\n", serial);
+    targetSerial = serial;
+    return targetSerial;
 }
 
 char searchByName(AddressBook * addressBook, ContactInfo * contactInfo, int count) {
