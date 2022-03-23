@@ -13,6 +13,7 @@ extern ContactInfo *contactinfo;
 Status add_contacts(AddressBook *address_book)
 {
     char choice;
+    char select[10];
     ContactInfo* contactInfo = address_book -> list; 
     contactInfo = (ContactInfo*) realloc(contactInfo, ((address_book -> count + 1) * sizeof(contactInfo)));
 
