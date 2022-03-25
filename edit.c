@@ -9,7 +9,7 @@
 
 Status edit_contact(AddressBook *address_book)
 {
-	char save[200];
+    char save[200];
 	int choice;
 	int i;
 
@@ -45,13 +45,10 @@ Status edit_contact(AddressBook *address_book)
 				ContactInfo contact = address_book -> list[i];
 				for (int j = 0; j < NAME_COUNT; j++)
 				{
-					if (strcmp(save, &contact.name[j][i]) == 0)
-					{
-                        edit(address_book, i);
+                        edit(address_book, i, save);
 						j = NAME_COUNT;
 						i = address_book -> count;
 						break;
-					}
 				}
 			}
 			break;
@@ -66,12 +63,10 @@ Status edit_contact(AddressBook *address_book)
 				ContactInfo contact = address_book -> list[i];
 				for (int j = 0; j < PHONE_NUMBER_COUNT; j++)
 				{
-					if (strcmp(save, &contact.phone_numbers[j][i]) == 0)
-					{
+						edit(address_book, i, save);
 						j = NAME_COUNT;
 						i = address_book -> count;
 						break;
-					}
 				}
 			}
 			break;
@@ -86,12 +81,10 @@ Status edit_contact(AddressBook *address_book)
 				ContactInfo contact = address_book -> list[i];
 				for (int j = 0; j < EMAIL_ID_COUNT; j++)
 				{
-					if (strcmp(save, &contact.email_addresses[j][i]) == 0)
-					{
+                        edit(address_book, i, save);
 						j = NAME_COUNT;
 						i = address_book -> count;
 						break;
-					}
 				}
 			}
 			break;
@@ -102,11 +95,15 @@ Status edit_contact(AddressBook *address_book)
 			printf("\nEnter the Serial No: ");
 			int serial;
 			scanf("%d", &serial);
+
 			for (int i = 0; i < address_book -> count; i++)
 			{
 				ContactInfo contact = address_book -> list[i];
 				if (serial == contact.si_no)
 				{
+					char s[200];
+					sprintf(s, "&d", serial);
+                    edit(address_book, i, s);
 					i = address_book -> count;
 					break;
 				}
@@ -117,20 +114,26 @@ Status edit_contact(AddressBook *address_book)
 	return e_success;
 }
 
-Status edit(AddressBook *address_book, int index)
+Status edit(AddressBook *address_book, int index, char save[200])
 {
     ContactInfo contact;
 	int option;
     char input;
-	int phoneCount = 0;
-	int numberOfPhones = sizeof address_book->list[index].phone_numbers / sizeof *address_book->list[index].phone_numbers;
-	int emailCount = 0;
-	int numberOfEmails = sizeof address_book->list[index].email_addresses / sizeof *address_book->list[index].email_addresses;
-		
+	int serialInput;
+	int array[address_book->count-1];
+	int i;
 	printf("===========================================================================================================\n");
-	printf(":S.No  :Name                            :Phone No                        :Email ID                        :\n");
+	b:if(strcmp(&address_book->list[index].name[0][0], save) == 0)
+	  {
+		goto a;
+	  }
+	else
+	{
+		array[i] = 0;
+		goto c;
+	}
+	a: printf(":S.No  :Name                            :Phone No                        :Email ID                        :\n");
 	printf("===========================================================================================================\n");
-
 	printf(":%d", address_book->list[index].si_no);
 	if (address_book->list[index].si_no < 10) 
 	{
@@ -151,6 +154,12 @@ Status edit(AddressBook *address_book, int index)
 	{
 		printf(" ");
 	}
+
+	int phoneCount = 0;
+	int numberOfPhones = sizeof address_book->list[index].phone_numbers / sizeof *address_book->list[index].phone_numbers;
+	int emailCount = 0;
+	int numberOfEmails = sizeof address_book->list[index].email_addresses / sizeof *address_book->list[index].email_addresses;
+
 	if (numberOfPhones > 0) 
 	{
 		printf(":%s", &address_book->list[index].phone_numbers[0][0]);
@@ -225,12 +234,24 @@ Status edit(AddressBook *address_book, int index)
 		printf(":\n"); //end of row
 		}
 		printf("===========================================================================================================\n");
-        printf("Press:  [s] = Select.  [q] | Cancel :");
+		c: if (index < (address_book->count-1)) {
+				index++;
+				i++;
+				goto b;
+			}	
+		printf("Press:  [s] = Select.  [q] | Cancel: ");
         scanf(" %c", &input);
         if(input == 's')
         {
-            printf("a");
+            printf("Select a Serial Number (S.No) to edit: ");
         }
+		else if(input == 'q')
+		{
+			return e_success;
+		}
+		scanf("%d", &serialInput);
+		serialInput --;
+		index = serialInput;
         do
         {
 			printf("Edit Contact:\n");
@@ -268,7 +289,65 @@ Status edit(AddressBook *address_book, int index)
 				}
             }
         }
+		printf("\nPlease select an option: ");
+		scanf("%d", &option);
 
+		if(option == 0)
+		{
+			break;
+		}
+		if(option == 1)
+		{
+			printf("Enter the name: ");
+			scanf("%s", &address_book->list[index].name[0][0]);
+			if (strlen(*address_book->list[index].name) > NAME_LEN)
+			{
+				printf("ERROR. Invalid Length of Name. Please enter a key to continue: ");
+				getchar();
+			}
+		}
+
+		if(option == 2)
+		{
+			if (phoneCount < PHONE_NUMBER_COUNT)
+			{
+				printf("Enter Phone Number %d: ", phoneCount + 1);
+				scanf("%s", &address_book->list[index].phone_numbers[phoneCount][0]);
+				if (strlen(address_book->list[index].phone_numbers[phoneCount]) > NUMBER_LEN)
+				{
+					printf("ERROR. Invalid Length of Phone Number. Please enter a key to continue: ");
+					getchar();
+				}
+				else
+					phoneCount++;
+			}
+			else
+			{
+				printf("ERROR. You have reached maximum number of Phone Numbers. Please enter a key to continue: ");
+				getchar();
+			}
+		}
+		if(option == 3)
+		{
+			if (emailCount < EMAIL_ID_COUNT)
+			{
+				printf("Enter Email ID %d: ", emailCount + 1);
+				scanf("%s", &address_book->list[index].email_addresses[emailCount][0]);
+				if (strlen(&address_book->list[index].email_addresses[emailCount][0]) > EMAIL_ID_LEN)
+				{
+					printf("ERROR. Invalid Length of Email. Please enter a key to continue: ");
+					getchar();
+				}
+				else
+					emailCount++;
+			}
+			else
+			{
+				printf("ERROR. You have reached maximum number of Emails. Please enter a key to continue: ");
+				getchar();
+			}
+		}
+		getchar();
 	} while (option != 0);
     return e_success;
 }
