@@ -123,13 +123,31 @@ Status edit(AddressBook *address_book, int index, char save[200])
 	int array[address_book->count-1];
 	int i;
 	printf("===========================================================================================================\n");
-	b:if(strcmp(&address_book->list[index].name[0][0], save) == 0)
-	  {
+	b:
+	if(strcmp(&address_book->list[index].name[0][0], save) == 0)
+	{
 		goto a;
-	  }
+	}
 	else
 	{
-		array[i] = 0;
+		goto c;
+	}
+
+	if(strcmp(&address_book->list[index].phone_numbers[0][0], save) == 0)
+	{
+		goto a;
+	}
+	else
+	{
+		goto c;
+	}
+	
+	if(strcmp(&address_book->list[index].email_addresses[0][0], save) == 0)
+	{
+		goto a;
+	}
+	else
+	{
 		goto c;
 	}
 	a: printf(":S.No  :Name                            :Phone No                        :Email ID                        :\n");
