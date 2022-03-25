@@ -11,13 +11,13 @@ extern AddressBook *newAddress;
 extern ContactInfo *contactinfo;
 Status delete_contact(AddressBook *address_book)
 {
+    ContactInfo * contactInfo = address_book -> list; 
+
     //A variable to save name, phone number, serial number, and email id every time we do search
-    char* save[255]; 
+    char save[255]; 
     char searchBy[255];
     char select[10];
-    char choice;
-
-    ContactInfo * contactInfo = address_book -> list; 
+    char choice; //not sure
     
     //To find the contact that has to be deleted
     while(strcmp(choice,'0') != 0)
@@ -34,8 +34,9 @@ Status delete_contact(AddressBook *address_book)
         prontf("Please select an option:\n "); 
         scanf("%c", choice); 
 
-        //To check if the selection is valid or not.
-        while((int)choice < 0 || (int)choice > 4)
+        //To check if the selection is valid or not. (Sanitizing User Input)
+        while(strcmp(choice, '0') != 0 && strcmp(choice, '1') != 0
+              && strcmp(choice, '2') != 0 && strcmp(choice, '4') != 0)
         {
             menu_header("Search Contact to delete by: "); 
             strcmp(select, "select");
@@ -50,7 +51,7 @@ Status delete_contact(AddressBook *address_book)
         
         if(strcmp(choice, '0') == 0)
         {
-            break; //stop 
+            break; 
         }//end if
 
         //Search the contact by name
@@ -64,7 +65,7 @@ Status delete_contact(AddressBook *address_book)
         //Search the contact by phone number
         else if(strcmp(choice, '2') == 0)
         {
-            printf("\nEnter the Phone No: ");
+            printf("\nEnter the Phone No 1: ");
             scanf("%s", save);
             strcpy(searchBy, "Phone"); 
         }//end else if
@@ -72,7 +73,7 @@ Status delete_contact(AddressBook *address_book)
         //Search the contact by Email ID 
         else if(strcmp(choice, '3') == 0)
         {
-            printf("\nEnter the Email ID: ");
+            printf("\nEnter the Email ID 1: ");
             scanf("%s", save);
             strcpy(searchBy, "Email"); 
         }//end else if
@@ -119,7 +120,7 @@ Status delete_contact(AddressBook *address_book)
                     {
                         while(strcmp(choice,'0') != 0)
                         {
-                            menu_header("Edit Contact: ");
+                            menu_header("Delete Contact: ");
                             printf("\n0. Back");
                             printf("\n1. Name       : %s", ((i)+contactinfo)->name);
                             printf("\n2. Phone No 1 : %s", ((i)+contactinfo)->phone_numbers[0]);
