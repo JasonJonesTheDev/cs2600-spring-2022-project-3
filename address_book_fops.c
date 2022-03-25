@@ -8,19 +8,23 @@
 
 #include "address_book.h"
 
+/*
+ *this reads in a CSV file and loads the contents of said file into an AddressBook
+ *commented out are printf statements used for testing
+ *turning each line into an array of strings, then assigning each item in array to corresponding
+ *item in addressbook
+ */
 Status load_file(AddressBook *address_book)
 {
     int ret;
     FILE *fp;
     
-    /*
-     * Check for file existance
-     */
+    //checks file existance
     if( access( DEFAULT_FILE, F_OK ) == 0 ) {
-        printf("the file exists\n");
+        //printf("the file exists\n");
         ret = 0;
     } else {
-        printf("the file does not exist\n");
+        //printf("the file does not exist\n");
         ret = 1;
     }
 
@@ -39,7 +43,7 @@ Status load_file(AddressBook *address_book)
 				count++;
 		} while (c != EOF);
 
-        printf("%d\n", count);
+        //printf("%d\n", count);
         int total = 0;
         rewind(fp); //places our file pointer back at the start of the file
         // address_book->count = total;
@@ -61,12 +65,12 @@ Status load_file(AddressBook *address_book)
                 count++;
                 token = strtok(NULL, ",");
             }
-            printf("assignment loop %d\n", total);
+            //printf("assignment loop %d\n", total);
              if (total > 0) {
                 for (int i = 0; i < 12; i++) {
                     switch(i) {
                         case 0:
-                            printf("name assigned\n");
+                            //printf("name assigned\n");
                             strcpy(((address_book->list)+(total-1))->name[0], arr[i]);
                             break;
                         case 1:
@@ -74,7 +78,7 @@ Status load_file(AddressBook *address_book)
                         case 3:
                         case 4:
                         case 5:
-                            printf("number assigned\n");
+                            //printf("number assigned\n");
                             if (strcmp(arr[i], " ") != 0) 
                                 strcpy(((address_book->list)+(total-1))->phone_numbers[i-1], arr[i]);
                             else
@@ -85,24 +89,24 @@ Status load_file(AddressBook *address_book)
                         case 8:
                         case 9:
                         case 10:
-                            printf("email assigned\n");
+                            //printf("email assigned\n");
                             if (strcmp(arr[i], " ") != 0) 
                                 strcpy(((address_book->list)+(total-1))->email_addresses[i-6], arr[i]);
                             else
                                 strcpy(((address_book->list)+(total-1))->email_addresses[i-6], "\0");
                             break;
                         case 11:
-                            printf("si_no assigned\n");
+                            //printf("si_no assigned\n");
                             ((address_book->list)+(total-1))->si_no = atoi(arr[i]);
                             break;
                         default:
-                            printf("default case");
+                            //printf("default case");
                             break;
                     }
                 }
              }
             total++;
-            printf("\n");
+            //printf("\n");
         }
         fclose(fp);
 
@@ -110,22 +114,23 @@ Status load_file(AddressBook *address_book)
     else
     {
         /* Create a file for adding entries */
-        printf("Building address_book.csv\n");
+        //printf("Building address_book.csv\n");
         FILE *fp = fopen(DEFAULT_FILE, "w");
 		address_book->fp = fp;
 		address_book->count = 0;
-		fclose(address_book->fp);
+		fclose(fp);
     }
 
     return e_success;
 }
 
+/*
+ *this saves a file in the format we need
+ *adds a nice header to the top that we ignore when reading in
+ */
 Status save_file(AddressBook *address_book)
 {
-    /*
-     * Write contacts back to file.
-     * Re write the complete file currently
-     */
+    
     address_book->fp = fopen(DEFAULT_FILE, "w");
 
     if (address_book->fp == NULL)
@@ -133,10 +138,6 @@ Status save_file(AddressBook *address_book)
         return e_fail;
     }
 
-    /*
-     * Add the logic to save the file
-     * Make sure to do error handling
-     */
     char* emptyStr = "\0";
     char *header = "name,phone_number1,phone_number2,phone_number3,phone_number4,phone_number5,email1,email2,email3,email4,email5,si_no\n";
 	fprintf(address_book->fp, "%s", header);
@@ -156,7 +157,10 @@ Status save_file(AddressBook *address_book)
 				fprintf(address_book->fp, "%s,", address_book->list[i].email_addresses[k]);
 			else if(strcmp(address_book->list[i].email_addresses[k], emptyStr) == 0)
 				fprintf(address_book->fp, " ,");
-		fprintf(address_book->fp, "\n");
+        //write si_no
+        fprintf(address_book->fp, "%d", address_book->list[i].si_no);
+        if (i < address_book->count - 1)
+		    fprintf(address_book->fp, "\n");
     }
 
     fclose(address_book->fp);
@@ -164,10 +168,10 @@ Status save_file(AddressBook *address_book)
     return e_success;
 }
 
-//testing
-int main() {
-    AddressBook address_book;
-    load_file(&address_book);
-    printf("%s", address_book.list[3].name[0]);
-    //save_file(&address_book);
-}
+// //testing
+// int main() {
+//     AddressBook address_book;
+//     load_file(&address_book);
+//     printf("%s si_no %d", address_book.list[3].name[0], address_book.list[3].si_no);
+//     save_file(&address_book);
+// }
