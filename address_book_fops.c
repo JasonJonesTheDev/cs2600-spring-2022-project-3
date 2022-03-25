@@ -63,33 +63,37 @@ Status load_file(AddressBook *address_book)
             }
             printf("assignment loop %d\n", total);
              if (total > 0) {
-                for (int i = 0; i < 11; i++) {
+                for (int i = 0; i < 12; i++) {
                     switch(i) {
                         case 0:
-                            strcpy(address_book->list[total].name[0], arr[i]);
+                            printf("name assigned\n");
+                            strcpy(((address_book->list)+(total-1))->name[0], arr[i]);
                             break;
                         case 1:
                         case 2:
                         case 3:
                         case 4:
                         case 5:
+                            printf("number assigned\n");
                             if (strcmp(arr[i], " ") != 0) 
-                                strcpy(address_book->list[total].phone_numbers[i-1], arr[i]);
+                                strcpy(((address_book->list)+(total-1))->phone_numbers[i-1], arr[i]);
                             else
-                                strcpy(address_book->list[total].phone_numbers[i-1], "\0");
+                                strcpy(((address_book->list)+(total-1))->phone_numbers[i-1], "\0");
                             break;
                         case 6:
                         case 7:
                         case 8:
                         case 9:
                         case 10:
+                            printf("email assigned\n");
                             if (strcmp(arr[i], " ") != 0) 
-                                strcpy(address_book->list[total].email_addresses[i-6], arr[i]);
+                                strcpy(((address_book->list)+(total-1))->email_addresses[i-6], arr[i]);
                             else
-                                strcpy(address_book->list[total].email_addresses[i-6], "\0");
+                                strcpy(((address_book->list)+(total-1))->email_addresses[i-6], "\0");
                             break;
                         case 11:
-                            address_book->list[total].si_no = atoi(arr[i]);
+                            printf("si_no assigned\n");
+                            ((address_book->list)+(total-1))->si_no = atoi(arr[i]);
                             break;
                         default:
                             printf("default case");
@@ -98,16 +102,17 @@ Status load_file(AddressBook *address_book)
                 }
              }
             total++;
-            printf("#11 %s", arr[11]);
             printf("\n");
         }
+        fclose(fp);
 
     }
     else
     {
         /* Create a file for adding entries */
         printf("Building address_book.csv\n");
-		address_book->fp = fopen(DEFAULT_FILE, "w");
+        FILE *fp = fopen(DEFAULT_FILE, "w");
+		address_book->fp = fp;
 		address_book->count = 0;
 		fclose(address_book->fp);
     }
@@ -159,7 +164,10 @@ Status save_file(AddressBook *address_book)
     return e_success;
 }
 
+//testing
 int main() {
-    AddressBook *address_book;
-    load_file(address_book);
+    AddressBook address_book;
+    load_file(&address_book);
+    printf("%s", address_book.list[3].name[0]);
+    //save_file(&address_book);
 }
