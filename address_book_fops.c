@@ -31,23 +31,37 @@ Status load_file(AddressBook *address_book)
     {
         
         //this loop is used to set count for our address book
-        address_book->list = malloc(sizeof(ContactInfo)*50);
-         int total = 0;
-         
+		int count = 0; //number of lines in our csv
+		char c; //current char we are reading in
+		do {
+            c = fgetc(fp);
+			if (c == '\n') // Increment count if this character is newline
+				count++;
+		} while (c != EOF);
 
-        printf("%d", total);
-         address_book->count = total;
-         while (fgets(line, sizeof(line), fp)) {
-             char *token;
-             token = strtok(line,",");
-             int count = 0;
-             char arr[12][32];
-             while (token != NULL) {
-                 strcpy(arr[count], token);
-                 count++;
-                 token = strtok(NULL, ",");
-             }
-             printf("assignment loop %d\n", total);
+        printf("%d\n", count);
+        int total = 0;
+        rewind(fp); //places our file pointer back at the start of the file
+        // address_book->count = total;
+
+        //making our addressbook now that we know how many entries are in it (count)
+        address_book->list = malloc(count * sizeof(ContactInfo));
+		if (address_book->list == NULL) //error handling
+			return e_fail;
+		address_book->fp = fp;
+		address_book->count = count;
+
+        while (fgets(line, sizeof(line), fp)) {
+            char *token;
+            token = strtok(line,",");
+            int count = 0;
+            char arr[12][32];
+            while (token != NULL) {
+                strcpy(arr[count], token);
+                count++;
+                token = strtok(NULL, ",");
+            }
+            printf("assignment loop %d\n", total);
              if (total > 0) {
                 for (int i = 0; i < 11; i++) {
                     switch(i) {
@@ -83,10 +97,10 @@ Status load_file(AddressBook *address_book)
                     }
                 }
              }
-             total++;
-             printf("#11 %s", arr[11]);
-             printf("\n");
-         }
+            total++;
+            printf("#11 %s", arr[11]);
+            printf("\n");
+        }
 
     }
     else
@@ -118,7 +132,7 @@ Status save_file(AddressBook *address_book)
      * Add the logic to save the file
      * Make sure to do error handling
      */
-    char* target = "\0";
+    char* emptyStr = "\0";
     char *header = "name,phone_number1,phone_number2,phone_number3,phone_number4,phone_number5,email1,email2,email3,email4,email5,si_no\n";
 	fprintf(address_book->fp, "%s", header);
 
@@ -126,16 +140,16 @@ Status save_file(AddressBook *address_book)
         fprintf(address_book->fp, "%s,", address_book->list[i].name[0]);
         //for writing the 5 phone numbers
         for(int j = 0; j < 5; j++)
-			if(strcmp(address_book->list[i].phone_numbers[j],target) != 0)
+			if(strcmp(address_book->list[i].phone_numbers[j], emptyStr) != 0)
 				fprintf(address_book->fp, "%s,", address_book->list[i].phone_numbers[j]);
-			else if(strcmp(address_book->list[i].phone_numbers[j],target) == 0)
+			else if(strcmp(address_book->list[i].phone_numbers[j], emptyStr) == 0)
 				fprintf(address_book->fp, " ,");
 				
         //for writing the 5 emails,
 		for(int k = 0; k < 5; k++)
-			if(strcmp(address_book->list[i].email_addresses[k],target) != 0)
+			if(strcmp(address_book->list[i].email_addresses[k], emptyStr) != 0)
 				fprintf(address_book->fp, "%s,", address_book->list[i].email_addresses[k]);
-			else if(strcmp(address_book->list[i].email_addresses[k],target) == 0)
+			else if(strcmp(address_book->list[i].email_addresses[k], emptyStr) == 0)
 				fprintf(address_book->fp, " ,");
 		fprintf(address_book->fp, "\n");
     }
@@ -148,5 +162,4 @@ Status save_file(AddressBook *address_book)
 int main() {
     AddressBook *address_book;
     load_file(address_book);
-    printf("%s", address_book->list[1].name[0]);
 }
