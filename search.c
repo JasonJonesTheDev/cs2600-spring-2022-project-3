@@ -6,9 +6,9 @@
 #include "address_book_menu.h"
 #include "address_book.h"
 
-// void main(AddressBook* address_book) {
-//     search_contact(address_book);
-// }
+void main(AddressBook* address_book) {
+    search_contact(address_book);
+}
 
 Status search_contact(AddressBook* address_book) {
     AddressBook * addressBook = address_book; 
@@ -45,7 +45,7 @@ Status search_contact(AddressBook* address_book) {
 
             for(; i < count; i++) {
                 if (strcmp((i+contactPtr)->name[i], targetName) == 0) {
-                    printf("Name Search: %c\n", (i+contactPtr)->name[i]);
+                    printf("Name: %s. Phone Number: %s. Email: %s. Serial Number: %f\n", (i+contactPtr)->name[i], (i+contactPtr)->phone_numbers[i], (i+contactPtr)->email_addresses[i], (i+contactPtr)->si_no);
                     return e_success;
                 }
             }
@@ -58,7 +58,7 @@ Status search_contact(AddressBook* address_book) {
 
             for(; i < count; i++) {
                 if (strcmp((i+contactPtr)->phone_numbers[i], targetPhone) == 0) {
-                    printf("Phone Search: %s\n", contactPtr->phone_numbers[i]);
+                    printf("Name: %s. Phone Number: %s. Email: %s. Serial Number: %f\n", (i+contactPtr)->name[i], (i+contactPtr)->phone_numbers[i], (i+contactPtr)->email_addresses[i], (i+contactPtr)->si_no);
                     return e_success;
                 }
             }
@@ -71,7 +71,7 @@ Status search_contact(AddressBook* address_book) {
             
             for(; i < count; i++) {
                 if (strcmp((i+contactPtr)->email_addresses[i], targetEmail) == 0) {
-                    printf("Email Address Search: %s\n", (i+contactPtr)->email_addresses[i]);
+                    printf("Name: %s. Phone Number: %s. Email: %s. Serial Number: %f\n", (i+contactPtr)->name[i], (i+contactPtr)->phone_numbers[i], (i+contactPtr)->email_addresses[i], (i+contactPtr)->si_no);
                     return e_success;
                 }
             }
@@ -84,7 +84,7 @@ Status search_contact(AddressBook* address_book) {
             
             for(; i < count; i++) {
                 if ((i+contactPtr)->si_no == targetSerial) {
-                    printf("Serial Number Search: %s\n", (i+contactPtr)->si_no);
+                    printf("Name: %s. Phone Number: %s. Email: %s. Serial Number: %f\n", (i+contactPtr)->name[i], (i+contactPtr)->phone_numbers[i], (i+contactPtr)->email_addresses[i], (i+contactPtr)->si_no);
                     return e_success;
                 }
             }
