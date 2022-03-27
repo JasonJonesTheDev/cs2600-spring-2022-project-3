@@ -26,17 +26,16 @@ Status search_contact(AddressBook* address_book) {
     int targetSerial = 0;
     char choice = '0';
     int i = 0;
-    
 
     /* Select how to search the specific contact by name, by phone number, email id, or by serial number */
-    /*// printf("Select Contact to search by: \n");
-    // printf("0. Back\n");
-    // printf("1. Name\n");
-    // printf("2. Phone No\n");
-    // printf("3. Email ID\n");
-    // printf("4. Serial No\n");
-    // printf("Please select an option number:\n"); 
-    // scanf("%s", &choice);*/
+    printf("Select Contact to search by: \n");
+    printf("0. Back\n");
+    printf("1. Name\n");
+    printf("2. Phone No\n");
+    printf("3. Email ID\n");
+    printf("4. Serial No\n");
+    printf("Please select an option number:\n"); 
+    scanf("%s", &choice);
 
     printf("hollow world\n");
 
