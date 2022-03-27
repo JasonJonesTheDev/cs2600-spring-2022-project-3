@@ -74,23 +74,26 @@ Status list_contacts(AddressBook *address_book, const char *title, int *index, c
 	 * The menu provide navigation option if the entries increase the page size
 	 */
 
-	printf("===========================================================================================================\n");
-	printf(":S.No  :Name                            :Phone No                        :Email ID                        :\n");
-	printf("===========================================================================================================\n");
+	printf("\n===============================================================================================================================");
+	printf("\n: S.No : Name                               : Phone No                           : Email ID                                   :");
 	if (mode == e_list)
 	{
-
+		char space[20] = " ";
 		for (int i = 0; i < address_book->count; i++)
 		{
 			ContactInfo tmp = address_book->list[i];
-			printf("\n %d : %s : %s : %s", tmp.si_no, tmp.name, tmp.phone_numbers, tmp.email_addresses);
-			// for (int j = 0; j < 5; j++)
-			// {
-			// 	printf("\n %d : %s : %s : %s", tmp.si_no, tmp.name, tmp.phone_numbers, tmp.email_addresses);
-			// }
+			printf("\n===============================================================================================================================\n");
+			printf(":  %-3d : %-34s : %-34s : %-42s :", tmp.si_no, tmp.name, tmp.phone_numbers, tmp.email_addresses);
+			for (int j = 1; j < 5; j++)
+			{
+				printf("\n:  %-3s : %-34s : %-34s : %-42s :",space, space,tmp.phone_numbers[j], tmp.email_addresses[j]);
+			}
 		}
+		printf("\n===============================================================================================================================\n\n");
 	}
-	printf("press enter to continue...\n");
+
+	system("pause");
+	printf("\n press enter to continue...\n");
 	getchar();
 	return e_success;
 }
