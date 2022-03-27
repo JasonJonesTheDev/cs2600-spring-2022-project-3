@@ -233,9 +233,10 @@ Status delete_contact(AddressBook *address_book)
     return e_success;
 }
 
-int main() {
-    AddressBook address_book;
-    load_file(&address_book);
-    add_contacts(&address_book);
-    save_file(&address_book);
-}
+//testing compile with both address_book_fops_.c and address_book_menu.c
+// int main() {
+//     AddressBook address_book;
+//     load_file(&address_book);
+//     add_contacts(&address_book);
+//     save_file(&address_book);
+// }
