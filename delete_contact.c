@@ -18,13 +18,11 @@ Status delete_contact(AddressBook *address_book)
     ContactInfo * contactInfo = address_book -> list; 
     char save[255];
     char searchBy[255];
-    char select[10];
     char choice[10];
 
     do
     {
         menu_header("Search Contact to Delete by: "); 
-        strcpy(select, "select");
         printf("\n0. Back\n");
         printf("1. Name\n");
         printf("2. Phone No 1\n");
@@ -32,20 +30,6 @@ Status delete_contact(AddressBook *address_book)
         printf("4. Serial No\n");
         printf("Please select an option for search: "); 
         scanf("%s", choice); 
-
-        //Sanitizing User Inputs to check if the selection is valid or not.
-        while(strcmp(choice, "0") != 0 && strcmp(choice, "1") != 0 && strcmp(choice, "2") != 0
-                     && strcmp(choice, "3") != 0 && strcmp(choice, "4") != 0)
-        {
-            menu_header("Search Contact to Delete by: "); 
-            printf("\n0. Back\n");
-            printf("1. Name\n");
-            printf("2. Phone No 1\n");
-            printf("3. Email ID 1\n");
-            printf("4. Serial No\n");
-            printf("Please select an option for search: "); 
-            scanf("%s", choice); 
-        }
         
         if(strcmp(choice, "0") ==0)
         {
@@ -84,11 +68,11 @@ Status delete_contact(AddressBook *address_book)
             strcpy(searchBy, "Serial"); 
         }//end else if
 
-        while(strcmp(select,"q") != 0)
+        while(strcmp(choice,"q") != 0)
         {
             printf("\nPress: [s] = Select, [q] to Cancel: ");
-            scanf("%s", select);
-            if(strcmp(select,"q") != 0)
+            scanf("%s", choice);
+            if(strcmp(choice,"q") != 0)
             {
                 printf("\nSelect a Serial Number (S.No) to Delete: ");
                 scanf("%s", save); 
@@ -150,7 +134,7 @@ Status delete_contact(AddressBook *address_book)
                                 --address_book -> count;
                             }
                             strcpy(choice,"0");
-                            strcpy(select,"q");
+                            strcpy(choice,"q");
                         }//end while
                     }
                 }
