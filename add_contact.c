@@ -12,9 +12,9 @@ extern ContactInfo *contactinfo;
 
 Status add_contacts(AddressBook *address_book)
 {
-    char choice;
+    char choice[255];
     char select[10];
-    int num = 1; //A variable to check if any data is added or not.
+    int num = 1; 
 
     ContactInfo* contactInfo = address_book -> list; 
     contactInfo = (ContactInfo*) realloc(contactInfo, ((address_book -> count + 1) * sizeof(contactInfo)));
@@ -24,7 +24,7 @@ Status add_contacts(AddressBook *address_book)
     strcpy(((address_book -> count) + contactInfo) -> phone_numbers[0], " "); //To save contact's phone number
     strycpy(((address_book -> count) + contactInfo) -> email_addresses[0], " "); //To save contact's email address
 
-    while(strcmp(choice,'0') != 0)
+    while(strcmp(choice, "0") != 0)
     {
         menu_header("Add Contact:\n ");
         strcmp(select, "select");
@@ -34,14 +34,14 @@ Status add_contacts(AddressBook *address_book)
         printf("3. Email ID 1 :\n");
         prontf("Please select an option for add:\n "); 
         scanf("%c", choice); 
-
-        if(strcmp(choice, '0') == 0)
+        
+        if(strcmp(choice, "0", == 0))
         {
-            break; //stop
-        }//end if
+            break; 
+        }
 
         //If number 1 is selected, prompt the user to enter the name of the contact.
-        else if(strcmp(choice, '1' == 0))
+        else if(strcmp(choice, "1" == 0))
         {
             printf("\nEnter name: ");
             scanf("%s", ((address_book -> count) + contactInfo) -> name);
@@ -49,7 +49,7 @@ Status add_contacts(AddressBook *address_book)
         }//end else if
 
         //If number 2 is selected, prompt the user to enter the contact's phone number.
-        else if(strcmp(choice, '2' == 0))
+        else if(strcmp(choice, "2" == 0))
         {
             printf("\nEnter Phone No 1: ");
             scanf("%s", ((address_book -> count) + contactInfo) -> phone_numbers[0]);
@@ -57,7 +57,7 @@ Status add_contacts(AddressBook *address_book)
         }//end else if
 
         //If number 3 is selected, prompt the user to enter the contact's email address.
-        else if(strcmp(choice, '3' == 0))
+        else if(strcmp(choice, "4" == 0))
         {
             printf("\nEnter Email ID 1: ");
             scanf("%s", ((address_book -> count) + contactInfo) -> email_addresses[0]);
