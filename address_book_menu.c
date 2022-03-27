@@ -19,6 +19,27 @@ int get_option(int type, const char *msg)
      */
 
     /* Fill the code to add above functionality */
+    char option[10];
+    char *ptr;
+    int result = 0;
+    printf("%s", msg);
+    if (type != 0)
+    {
+        scanf("%s", option);
+    }
+    if (type == 1)
+    {
+        result = atoi(option);
+        printf("%d", result);
+    }
+    if (type == 2)
+    {
+        result = strtol(option, &ptr, 10);
+        printf("%d\n", result);
+        printf("%s\n", ptr);
+        return *ptr;
+    }
+    return result;
 }
 
 Status save_prompt(AddressBook *address_book)
@@ -60,7 +81,7 @@ void menu_header(const char *str)
 {
     fflush(stdout);
 
-    system("clear");
+    system("cls");
 
     printf("#######  Address Book  #######\n");
     if (str != '\0')
