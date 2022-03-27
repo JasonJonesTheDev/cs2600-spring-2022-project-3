@@ -145,16 +145,18 @@ Status add_contacts(AddressBook *address_book)
     address_book->list = realloc(address_book->list, sizeof(ContactInfo) * address_book->count);
 
     //take user input for name, nums, emails
-    char nameInput[NAME_LEN];
-    char numberInput[PHONE_NUMBER_COUNT][NUMBER_LEN];
-    char emailInput[EMAIL_ID_COUNT][EMAIL_ID_LEN];
+    char nameInput[NAME_LEN] = "\0";
+    char numberInput[PHONE_NUMBER_COUNT][NUMBER_LEN] = {"\0", "\0", "\0", "\0", "\0"};
+    char emailInput[EMAIL_ID_COUNT][EMAIL_ID_LEN]= {"\0", "\0", "\0", "\0", "\0"};
     int nameCount = 0;
     int numberCount = 0;
     int emailCount = 0;
     int choice = -1;
     int quit = 0;
+
     do {
-        printf("\nto go back enter 0\nto input name enter 1\nto input number #%d enter 2\nto input email #%d enter 3\n", numberCount+1, emailCount+1);
+        printf("#######   Add Contact:\n\n0. Back\n1. Name        : %s\n2. Phone No #%d : %s %s %s %s %s\n3. Email ID #%d : %s %s %s %s %s\n\n", nameInput, numberCount+1, numberInput[0], numberInput[1], numberInput[2], numberInput[3], numberInput[4],emailCount+1, emailInput[0], emailInput[1], emailInput[2], emailInput[3], emailInput[4]);
+        printf("Please select an option: ");
         scanf(" %d", &choice);
         switch (choice) {
             case 0:
@@ -166,10 +168,10 @@ Status add_contacts(AddressBook *address_book)
                     printf("max number of names already entered\n");
                     break;
                 } else {
-                    printf("adding name\n");
+                    printf("Enter the name: ");
                     scanf(" %[^\n]%*c", nameInput);
                     strcpy(((address_book->list)+(address_book->count - 1))->name[0], nameInput);
-                    printf("entered name: %s\n", ((address_book->list)+(address_book->count - 1))->name[0]);
+                    //printf("entered name: %s\n", ((address_book->list)+(address_book->count - 1))->name[0]);
                     nameCount++;
                 }
                 break;
@@ -178,10 +180,10 @@ Status add_contacts(AddressBook *address_book)
                     printf("max number of phone numbers already entered\n");
                     break;
                 } else {
-                    printf("adding number #%d", numberCount+1);
+                    printf("Enter phone number #%d: ", numberCount+1);
                     scanf(" %s", numberInput[numberCount]);
                     strcpy(((address_book->list)+(address_book->count - 1))->phone_numbers[numberCount], numberInput[numberCount]);
-                    printf("entered number: %s\n", ((address_book->list)+(address_book->count - 1))->phone_numbers[numberCount]);
+                    //printf("entered number: %s\n", ((address_book->list)+(address_book->count - 1))->phone_numbers[numberCount]);
                     numberCount++;
                 }
                 break;
@@ -189,10 +191,10 @@ Status add_contacts(AddressBook *address_book)
                 if (emailCount > 4) {
                     printf("max number of emails already entered\n");
                 } else {
-                    printf("adding email #%d", emailCount+1);
+                    printf("Enter email ID #%d: ", emailCount+1);
                     scanf(" %s", emailInput[emailCount]);
                     strcpy(((address_book->list)+(address_book->count - 1))->email_addresses[emailCount], emailInput[emailCount]);
-                    printf("entered email: %s\n", ((address_book->list)+(address_book->count - 1))->email_addresses[emailCount]);
+                    //printf("entered email: %s\n", ((address_book->list)+(address_book->count - 1))->email_addresses[emailCount]);
                     emailCount++;
                 }
                 break;
