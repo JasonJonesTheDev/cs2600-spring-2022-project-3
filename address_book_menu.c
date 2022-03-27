@@ -290,25 +290,6 @@ Status delete_contact(AddressBook *address_book)
         printf("===================================================================================================");
         printf("\n: S.No : Name                              : Phone No                          : Email ID                                  :");
 
-        for(int i=0; i < address_book -> count; ++i)
-        {
-            if(search(save, address_book, i, 0, searchBy, e_search) == e_success)
-            {
-                ContactInfo *contactPtr = address_book ->list;
-                char num[20] = " ";
-                printf("==================================================================================================");
-                printf("\n: %-4.4d : %-33.32s : %-33.32s : %-41.32s :", (i + contactPtr) -> si_no, (i + contactPtr) -> name,
-                         (i+contactPtr) -> phone_numbers[0], (i+contactPtr) -> email_addresses); 
-
-                for(int j = 0; j <= 4; ++j)
-                {
-                    printf("\n: %-4.4s : %-33.32s : %-33.32s : %-41.32s :",num, num,(i + contactPtr) -> phone_numbers[j], (i + contactPtr) -> email_addresses[j]);
-
-                }
-            }//end if
-
-        }//end for
-
         while(strcmp(select,"q") != 0)
         {
             printf("\nPress: [s] = Select, [q] to Cancel: ");
