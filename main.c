@@ -26,10 +26,6 @@ int main(void)
 			save_prompt(&address_book);
 		}
 	}
-    //AddressBook address_book;
-    load_file(&address_book);
-    printf("%s si_no %d", address_book.list[3].name[0], address_book.list[3].si_no);
-    save_file(&address_book);
 	
 
 	return 0;
