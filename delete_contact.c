@@ -21,7 +21,7 @@ Status delete_contact(AddressBook *address_book)
     char select[10];
     char choice[10];
 
-    while(strcmp(choice,"0") != 0)
+    do
     {
         menu_header("Search Contact to Delete by: "); 
         strcpy(select, "select");
@@ -83,11 +83,6 @@ Status delete_contact(AddressBook *address_book)
             scanf("%s", save);
             strcpy(searchBy, "Serial"); 
         }//end else if
-
-        
-        menu_header("Search Result:\n");
-        printf("===================================================================================================");
-        printf("\n: S.No : Name                              : Phone No                          : Email ID                                  :");
 
         while(strcmp(select,"q") != 0)
         {
@@ -161,5 +156,5 @@ Status delete_contact(AddressBook *address_book)
                 }
             }
         }
-    }
+    }while(strcmp(choice,"0") != 0);
 }//end delete_contact
