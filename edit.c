@@ -45,7 +45,7 @@ Status edit_contact(AddressBook *address_book)
 				ContactInfo contact = address_book -> list[i];
 				for (int j = 0; j < NAME_COUNT; j++)
 				{
-                        edit(address_book, i, save);
+                        edit(address_book, i, save, choice);
 						j = NAME_COUNT;
 						i = address_book -> count;
 						break;
@@ -63,7 +63,7 @@ Status edit_contact(AddressBook *address_book)
 				ContactInfo contact = address_book -> list[i];
 				for (int j = 0; j < PHONE_NUMBER_COUNT; j++)
 				{
-						edit(address_book, i, save);
+						edit(address_book, i, save, choice);
 						j = NAME_COUNT;
 						i = address_book -> count;
 						break;
@@ -81,7 +81,7 @@ Status edit_contact(AddressBook *address_book)
 				ContactInfo contact = address_book -> list[i];
 				for (int j = 0; j < EMAIL_ID_COUNT; j++)
 				{
-                        edit(address_book, i, save);
+                        edit(address_book, i, save, choice);
 						j = NAME_COUNT;
 						i = address_book -> count;
 						break;
@@ -103,7 +103,7 @@ Status edit_contact(AddressBook *address_book)
 				{
 					char s[200];
 					sprintf(s, "&d", serial);
-                    edit(address_book, i, s);
+                    edit(address_book, i, s, choice);
 					i = address_book -> count;
 					break;
 				}
@@ -114,42 +114,15 @@ Status edit_contact(AddressBook *address_book)
 	return e_success;
 }
 
-Status edit(AddressBook *address_book, int index, char save[200])
+Status edit(AddressBook *address_book, int index, char save[200], int choice)
 {
     ContactInfo contact;
 	int option;
     char input;
 	int serialInput;
-	int array[address_book->count-1];
-	int i;
-	printf("===========================================================================================================\n");
-	b:
-	if(strcmp(&address_book->list[index].name[0][0], save) == 0)
-	{
-		goto a;
-	}
-	else
-	{
-		goto c;
-	}
-
-	if(strcmp(&address_book->list[index].phone_numbers[0][0], save) == 0)
-	{
-		goto a;
-	}
-	else
-	{
-		goto c;
-	}
+	int search[200];
 	
-	if(strcmp(&address_book->list[index].email_addresses[0][0], save) == 0)
-	{
-		goto a;
-	}
-	else
-	{
-		goto c;
-	}
+	printf("===========================================================================================================\n");
 	a: printf(":S.No  :Name                            :Phone No                        :Email ID                        :\n");
 	printf("===========================================================================================================\n");
 	printf(":%d", address_book->list[index].si_no);
@@ -249,14 +222,14 @@ Status edit(AddressBook *address_book, int index, char save[200])
 				printf(" ");
 			}
 		}
-		printf(":\n"); //end of row
+		printf(":\n");
 		}
 		printf("===========================================================================================================\n");
-		c: if (index < (address_book->count-1)) {
-				index++;
-				i++;
-				goto b;
-			}	
+		if (index < (address_book->count-1)) 
+		{
+			index++;
+			goto a;
+		}	
 		printf("Press:  [s] = Select.  [q] | Cancel: ");
         scanf(" %c", &input);
         if(input == 's')
