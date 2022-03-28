@@ -411,11 +411,11 @@ Status delete_contact(AddressBook *address_book)
 }
 
 //testing compile with both address_book_fops_.c and address_book_menu.c
-int main() {
-    AddressBook address_book;
-    load_file(&address_book);
-    add_contacts(&address_book);
-    //search_contact(&address_book);
-    delete_contact(&address_book);
-    save_file(&address_book);
-}
+// int main() {
+//     AddressBook address_book;
+//     load_file(&address_book);
+//     add_contacts(&address_book);
+//     //search_contact(&address_book);
+//     delete_contact(&address_book);
+//     save_file(&address_book);
+// }
