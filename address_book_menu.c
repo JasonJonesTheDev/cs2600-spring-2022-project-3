@@ -18,10 +18,10 @@ int get_option(int type, const char *msg)
 	 * Read a charcter
 	 */
 
-<<<<<<< HEAD
+
     /* Fill the code to add above functionality */
     return 0;
-=======
+
 	/* Fill the code to add above functionality */
 	char option[10];
 	char *ptr;
@@ -44,7 +44,7 @@ int get_option(int type, const char *msg)
 		return *ptr;
 	}
 	return result;
->>>>>>> main
+
 }
 
 Status save_prompt(AddressBook *address_book)
@@ -79,7 +79,7 @@ Status list_contacts(AddressBook *address_book, const char *title, int *index, c
 	 * The menu provide navigation option if the entries increase the page size
 	 */
 
-	printf("\n===============================================================================================================================");
+	printf("\n=");
 	printf("\n: S.No : Name                               : Phone No                           : Email ID                                   :");
 	if (mode == e_list)
 	{
@@ -87,14 +87,14 @@ Status list_contacts(AddressBook *address_book, const char *title, int *index, c
 		for (int i = 0; i < address_book->count; i++)
 		{
 			ContactInfo tmp = address_book->list[i];
-			printf("\n===============================================================================================================================\n");
+			printf("\n=\n");
 			printf(":  %-3d : %-34s : %-34s : %-42s :", tmp.si_no, tmp.name, tmp.phone_numbers, tmp.email_addresses);
 			for (int j = 1; j < 5; j++)
 			{
 				printf("\n:  %-3s : %-34s : %-34s : %-42s :",space, space,tmp.phone_numbers[j], tmp.email_addresses[j]);
 			}
 		}
-		printf("\n===============================================================================================================================\n\n");
+		printf("\n=\n\n");
 	}
 
 	system("pause");
@@ -181,7 +181,7 @@ Status menu(AddressBook *address_book)
 
 Status add_contacts(AddressBook *address_book)
 {
-<<<<<<< HEAD
+
     //check if addressbook is NULL
     if (address_book == NULL)
         return e_fail;
@@ -257,37 +257,37 @@ Status add_contacts(AddressBook *address_book)
     ((address_book->list) + (address_book->count - 1))->si_no = address_book->count;
     
     return e_success;
-=======
+
 	/* Add the functionality for adding contacts here */
->>>>>>> main
+
 }
 
 Status search(const char *str, AddressBook *address_book, int loop_count, int field, const char *msg, Modes mode)
 {
-<<<<<<< HEAD
+
     /* Add the functionality for adding contacts here */
     return e_success;
-=======
+
 	/* Add the functionality for adding contacts here */
->>>>>>> main
+
 }
 
 Status search_contact(AddressBook *address_book)
 {
-<<<<<<< HEAD
+
     /* Add the functionality for search contacts here */
     return e_success;
-=======
+
 	/* Add the functionality for search contacts here */
->>>>>>> main
+
 }
 
 Status edit_contact(AddressBook *address_book)
 {
-<<<<<<< HEAD
+
     /* Add the functionality for edit contacts here */
     return e_success;
-=======
+
 	char save[200];
 	int choice;
 	int i;
@@ -409,9 +409,9 @@ Status edit(AddressBook *address_book, int index)
 	int emailCount = 0;
 	int numberOfEmails = sizeof address_book->list[index].email_addresses / sizeof *address_book->list[index].email_addresses;
 
-	printf("===========================================================================================================\n");
+	printf("==\n");
 	printf(":S.No  :Name                            :Phone No                        :Email ID                        :\n");
-	printf("===========================================================================================================\n");
+	printf("==\n");
 
 	printf(":%d", address_book->list[index].si_no);
 	if (address_book->list[index].si_no < 10)
@@ -506,7 +506,7 @@ Status edit(AddressBook *address_book, int index)
 		}
 		printf(":\n"); // end of row
 	}
-	printf("===========================================================================================================\n");
+	printf("==\n");
 	printf("Press:  [s] = Select.  [q] | Cancel :");
 	scanf(" %c", &input);
 	if (input == 's')
@@ -552,12 +552,12 @@ Status edit(AddressBook *address_book, int index)
 		}
 	} while (option != 0);
 	return e_success;
->>>>>>> main
+
 }
 
 Status delete_contact(AddressBook *address_book)
 {
-<<<<<<< HEAD
+
     /* Add the functionality for delete contacts here */
     return e_success;
 }
@@ -569,7 +569,7 @@ Status delete_contact(AddressBook *address_book)
 //     add_contacts(&address_book);
 //     save_file(&address_book);
 // }
-=======
+
 	/* Add the functionality for delete contacts here */
 }
->>>>>>> main
+
