@@ -14,19 +14,22 @@ void main(AddressBook *address_book) {
 }
 
 Status search(AddressBook *address_book, char title, int i, char save[255], int serial, Modes mode) {
+	printf("hello world\n");
 	FILE *fp = fopen(DEFAULT_FILE, "r");
 	ContactInfo contact = address_book -> list[i];
-	ContactInfo contactPtr = address_book -> list[i];
 	int Found = 0;
+	printf("hello world under\n");
 
     while(mode == e_search) {
+		printf("hello world mode\n");
         if(fp == NULL){
             printf("**The file is empty** !!\n\n");
         } else {
-			while(!feof(fp) && Found == 0) {
+			while(!feof(fp)) {
 				switch(title) {
 					case '0':
 					printf("Back\n");
+					return e_back;
 					break;
 					case '1':
 					if(strcmp(&address_book->list[i].name[0][0], save) == 0) {
@@ -34,10 +37,12 @@ Status search(AddressBook *address_book, char title, int i, char save[255], int 
 						printf("The Name is:               %s\n", contact.name);
 						printf("The phone number is:       %s\n", contact.phone_numbers);
 						printf("The e-mail is:             %s\n", contact.email_addresses);
-						printf("The serial number is:      %f\n", contactPtr.si_no);
+						printf("The serial number is:      %f\n", contact.si_no);
+						return e_success;
 					} else {
 						Found = 0;
 						printf("**There is no such Entry**\n");
+						return e_no_match;
 					}
 					break;
 					case '2':
@@ -46,10 +51,12 @@ Status search(AddressBook *address_book, char title, int i, char save[255], int 
 						printf("The Name is:               %s\n", contact.name);
 						printf("The phone number is:       %s\n", contact.phone_numbers);
 						printf("The e-mail is:             %s\n", contact.email_addresses);
-						printf("The serial number is:      %f\n", contactPtr.si_no);
+						printf("The serial number is:      %f\n", contact.si_no);
+						return e_success;
 					} else {
 						Found = 0;
 						printf("**There is no such Entry**\n");
+						return e_no_match;
 					}
 					break;
 					case '3':
@@ -58,10 +65,12 @@ Status search(AddressBook *address_book, char title, int i, char save[255], int 
 						printf("The Name is:               %s\n", contact.name);
 						printf("The phone number is:       %s\n", contact.phone_numbers);
 						printf("The e-mail is:             %s\n", contact.email_addresses);
-						printf("The serial number is:      %f\n", contactPtr.si_no);
+						printf("The serial number is:      %f\n", contact.si_no);
+						return e_success;
 					} else {
 						Found = 0;
 						printf("**There is no such Entry**\n");
+						return e_no_match;
 					}
 					break;
 					case '4':
@@ -71,13 +80,16 @@ Status search(AddressBook *address_book, char title, int i, char save[255], int 
 						printf("The phone number is:       %s\n", contact.phone_numbers);
 						printf("The e-mail is:             %s\n", contact.email_addresses);
 						printf("The serial number is:      %f\n", contact.si_no);
+						return e_success;
 					} else {
 						Found = 0;
 						printf("**There is no such Entry**\n");
+						return e_no_match;
 					}
 					break;
 					default:
 					printf("Error");
+					return e_fail;
 				}
 			}
 			fclose(address_book->fp);
@@ -93,7 +105,7 @@ Status search_contact(AddressBook *address_book) {
 	int i;
 	Modes mode = e_search;
 
-    printf("#######  Address Book  #######\n");
+    m: printf("#######  Address Book  #######\n");
 	printf("Search contact to search by: \n");
 	printf("0. Back\n");
 	printf("1. Name\n");
@@ -103,79 +115,79 @@ Status search_contact(AddressBook *address_book) {
 	a: printf("Please select an option: ");
 	scanf("%s", &choice);
 
-    while(choice == '0') {
-        switch(choice) {
-            case '0':
-            return e_back;
-			break;
-            case '1':
-            printf("What name would you like to search for:\n");
-            scanf("%s\n", &save);
-			for (int i = 0; i < address_book -> count; i++)
+	switch(choice) {
+		case '0':
+		goto m;
+		return e_back;
+		break;
+		case '1':
+		printf("What name would you like to search for:\n");
+		scanf("%s\n", &save);
+		for (int i = 0; i < address_book->count; i++)
+		{
+			ContactInfo contact = address_book -> list[i];
+			for (int j = 0; j < NAME_COUNT; j++)
 			{
-				ContactInfo contact = address_book -> list[i];
-				for (int j = 0; j < NAME_COUNT; j++)
-				{
-					serial = 0;
-                    search(address_book, choice, i, save, serial, mode);
-					j = NAME_COUNT;
-					i = address_book -> count;
-					break;
-				}
+				serial = 0;
+				search(address_book, choice, i, save, serial, mode);
+				j = NAME_COUNT;
+				i = address_book -> count;
+				break;
 			}
-			break;
-            case '2':
-            printf("What phone number would you like to search for:\n");
-            scanf("%s\n", &save);
-			for (int i = 0; i < address_book -> count; i++)
+		}
+		break;
+		case '2':
+		printf("What phone number would you like to search for:\n");
+		scanf("%s\n", &save);
+		for (int i = 0; i < address_book->count; i++)
+		{
+			ContactInfo contact = address_book -> list[i];
+			for (int j = 0; j < PHONE_NUMBER_COUNT; j++)
 			{
-				ContactInfo contact = address_book -> list[i];
-				for (int j = 0; j < PHONE_NUMBER_COUNT; j++)
-				{
-					serial = 0;
-                    search(address_book, choice, i, save, serial, mode);
-					j = NAME_COUNT;
-					i = address_book -> count;
-					break;
-				}
+				serial = 0;
+				search(address_book, choice, i, save, serial, mode);
+				j = NAME_COUNT;
+				i = address_book -> count;
+				break;
 			}
-			break;
-            case '3':
-            printf("What email address would you like to search for:\n");
-            scanf("%s\n", &save);
-			for (int i = 0; i < address_book -> count; i++)
+		}
+		break;
+		case '3':
+		printf("What email address would you like to search for:\n");
+		scanf("%s\n", &save);
+		for (int i = 0; i < address_book -> count; i++)
+		{
+			ContactInfo contact = address_book -> list[i];
+			for (int j = 0; j < EMAIL_ID_COUNT; j++)
 			{
-				ContactInfo contact = address_book -> list[i];
-				for (int j = 0; j < EMAIL_ID_COUNT; j++)
-				{
-					serial = 0;
-                    search(address_book, choice, i, save, serial, mode);
-					j = NAME_COUNT;
-					i = address_book -> count;
-					break;
-				}
+				serial = 0;
+				search(address_book, choice, i, save, serial, mode);
+				j = NAME_COUNT;
+				i = address_book -> count;
+				break;
 			}
-			break;
-            case '4':
-            printf("What serial number would you like to search for:\n");
-            scanf("%f\n", &serial);
-			for (int i = 0; i < address_book -> count; i++)
+		}
+		break;
+		case '4':
+		printf("What serial number would you like to search for:\n");
+		scanf("%f\n", &serial);
+		for (int i = 0; i < address_book -> count; i++)
+		{
+			ContactInfo contact = address_book -> list[i];
+			if (serial == contact.si_no)
 			{
-				ContactInfo contact = address_book -> list[i];
-				if (serial == contact.si_no)
-				{
-					serial = serial;
-                    search(address_book, choice, i, save, serial, mode);
-					i = address_book -> count;
-					break;
-				}
+				serial = serial;
+				search(address_book, choice, i, save, serial, mode);
+				i = address_book -> count;
+				break;
 			}
-			break;
-            default:
-            goto a;
-        }
-        return e_success;
-    }
+		}
+		break;
+		default:
+		goto a;
+		break;
+	}
+	return e_success;
 }
 
 // Status search(AddressBook *address_book, int i, char choice,) {
