@@ -20,7 +20,7 @@ int get_option(int type, const char *msg)
 
 
     /* Fill the code to add above functionality */
-    return 0;
+    //return 0;
 
 	/* Fill the code to add above functionality */
 	char option[10];
@@ -78,8 +78,7 @@ Status list_contacts(AddressBook *address_book, const char *title, int *index, c
 	 * Should be menu based
 	 * The menu provide navigation option if the entries increase the page size
 	 */
-
-	printf("\n=");
+	printf("\n===============================================================================================================================");
 	printf("\n: S.No : Name                               : Phone No                           : Email ID                                   :");
 	if (mode == e_list)
 	{
@@ -87,14 +86,14 @@ Status list_contacts(AddressBook *address_book, const char *title, int *index, c
 		for (int i = 0; i < address_book->count; i++)
 		{
 			ContactInfo tmp = address_book->list[i];
-			printf("\n=\n");
+			printf("\n===============================================================================================================================\n");
 			printf(":  %-3d : %-34s : %-34s : %-42s :", tmp.si_no, tmp.name, tmp.phone_numbers, tmp.email_addresses);
 			for (int j = 1; j < 5; j++)
 			{
 				printf("\n:  %-3s : %-34s : %-34s : %-42s :",space, space,tmp.phone_numbers[j], tmp.email_addresses[j]);
 			}
 		}
-		printf("\n=\n\n");
+		printf("\n===============================================================================================================================\n\n");
 	}
 
 	system("pause");
@@ -571,5 +570,5 @@ Status delete_contact(AddressBook *address_book)
 // }
 
 	/* Add the functionality for delete contacts here */
-}
+// }
 
