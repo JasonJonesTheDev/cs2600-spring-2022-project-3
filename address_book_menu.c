@@ -368,8 +368,17 @@ Status search_contact(AddressBook *address_book)
         printf("search not found\n");
         return e_fail;
     } else {      //PRINT FORMATTING HERE ONLY WORK IN THE ELSE
-        printf("\n");
-        printf("%s, %s, %s, %d\n", result->name, result->phone_numbers[0], result->email_addresses[0], result->si_no);
+        printf("\n#######   Search Result: \n\n");
+        printf("\n===============================================================================================================================");
+	    printf("\n: S.No : Name                               : Phone No                           : Email ID                                   :");
+		char space[20] = " ";
+        printf("\n===============================================================================================================================\n");
+        printf(":  %-3d : %-34s : %-34s : %-42s :", result->si_no, result->name, result->phone_numbers, result->email_addresses);
+        for (int k = 1; k < 5; k++)
+        {
+            printf("\n:  %-3s : %-34s : %-34s : %-42s :",space, space,result->phone_numbers[k], result->email_addresses[k]);
+        }
+		printf("\n===============================================================================================================================\n\n");
     }
     return e_success;
 }
@@ -426,8 +435,8 @@ Status delete_contact(AddressBook *address_book)
 int main() {
     AddressBook address_book;
     load_file(&address_book);
-    add_contacts(&address_book);
-    //search_contact(&address_book);
-    delete_contact(&address_book);
+    //add_contacts(&address_book);
+    search_contact(&address_book);
+    //delete_contact(&address_book);
     save_file(&address_book);
 }
