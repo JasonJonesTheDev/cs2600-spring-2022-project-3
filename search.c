@@ -155,7 +155,7 @@ Status search_contact(AddressBook *address_book) {
 		case '3':
 		printf("What email address would you like to search for:\n");
 		scanf("%s\n", &save);
-		for (int i = 0; i < address_book -> count; i++)
+		for (int i = 0; i < address_book->count; i++)
 		{
 			ContactInfo contact = address_book -> list[i];
 			for (int j = 0; j < EMAIL_ID_COUNT; j++)
@@ -171,7 +171,7 @@ Status search_contact(AddressBook *address_book) {
 		case '4':
 		printf("What serial number would you like to search for:\n");
 		scanf("%f\n", &serial);
-		for (int i = 0; i < address_book -> count; i++)
+		for (int i = 0; i < address_book->count; i++)
 		{
 			ContactInfo contact = address_book -> list[i];
 			if (serial == contact.si_no)
