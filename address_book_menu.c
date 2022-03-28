@@ -219,7 +219,83 @@ Status search(const char *str, AddressBook *address_book, int loop_count, int fi
 
 Status search_contact(AddressBook *address_book)
 {
-    /* Add the functionality for search contacts here */
+    //check if addressbook is NULL
+    if (address_book == NULL)
+        return e_fail;
+    if (address_book->list == NULL) 
+        return e_fail;
+    
+    //take input from user to determine what theyre searching
+    int choice = -1;
+    int siNoIn = -1;
+    char search[32] = "\0";
+    ContactInfo *result;
+    printf("#######   Search Contact by: \n\n0. Back\n1. Name\n2. Phone No\n3. Email ID\n4. Serial No\n\n");
+    printf("Enter choice: ");
+    scanf(" %d", &choice);
+    switch(choice) {
+        case 0:
+            printf("quitting\n");
+            break;
+        case 1:
+            printf("Enter the Name: ");
+            scanf(" %[^\n]%*c", search);
+            //printf("\n%s\n", search);
+            printf("\n");
+            for (int i = 0; i < address_book->count; i++) {
+                //printf("%s\n",(((address_book->list)+i)->name[0]));
+                if (strcmp((((address_book->list)+i)->name[0]), search) == 0)
+                    result = ((address_book->list)+i);
+            }
+            break;
+        case 2:
+            printf("Enter the Phone No: ");
+            scanf(" %[^\n]%*c", search);
+            //printf("\n%s\n", search);
+            for (int i = 0; i < address_book->count; i++) {
+                for (int j = 0; j < 5; j++) {
+                    //printf("%s", (((address_book->list)+i)->phone_numbers[j]));
+                    if (strcmp((((address_book->list)+i)->phone_numbers[j]), search) == 0)
+                        result = ((address_book->list)+i);
+                }
+            }
+            printf("\n");
+
+            break;
+        case 3:
+            printf("Enter the Email ID: ");
+            scanf(" %[^\n]%*c", search);
+            //printf("\n%s\n", search);
+            printf("\n");
+            for (int i = 0; i < address_book->count; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if (strcmp((((address_book->list)+i)->email_addresses[j]), search) == 0)
+                        result = ((address_book->list)+i);
+                }
+            }
+            break;
+        case 4:
+            printf("Enter the Serial No:");
+            scanf(" %d", &siNoIn);
+            printf("\n");
+            for (int i = 0; i < address_book->count; i++) {
+                if ((((address_book->list)+i)->si_no) == siNoIn)
+                    result = ((address_book->list)+i);
+            }
+            break;
+        default:
+            printf("bad input %d\n", choice);
+            break;
+
+    }
+
+    if (result == NULL) {
+        printf("search not found\n");
+        return e_fail;
+    } else {      //PRINT FORMATTING HERE ONLY WORK IN THE ELSE
+        printf("\n");
+        printf("%s, %s, %s, %d\n", result->name, result->phone_numbers[0], result->email_addresses[0], result->si_no);
+    }
     return e_success;
 }
 
@@ -236,9 +312,10 @@ Status delete_contact(AddressBook *address_book)
 }
 
 //testing compile with both address_book_fops_.c and address_book_menu.c
-// int main() {
-//     AddressBook address_book;
-//     load_file(&address_book);
-//     add_contacts(&address_book);
-//     save_file(&address_book);
-// }
+int main() {
+    AddressBook address_book;
+    load_file(&address_book);
+    //add_contacts(&address_book);
+    search_contact(&address_book);
+    save_file(&address_book);
+}
