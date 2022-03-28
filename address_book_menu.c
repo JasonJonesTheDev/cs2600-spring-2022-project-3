@@ -387,6 +387,8 @@ Status delete_contact(AddressBook *address_book)
     //search to find contact to be deleted (return pointer to )
     char *type = "delete";
     int delitem = search(address_book, type);
+    ContactInfo deleted = *((address_book->list) + delitem - 1);
+
     for (int i = 0; i < delitem-1; i++) {
         temp[i] = *((address_book->list) + i);
         //printf("ab: %s\n",((address_book->list) + i)->name[0]);
@@ -405,17 +407,27 @@ Status delete_contact(AddressBook *address_book)
     free(temp);
 
     //DO TEXT FORMATTING DOWN HERE
-
+    printf("\n#######   Search Result: \n\n");
+    printf("\n===============================================================================================================================");
+	printf("\n: S.No : Name                               : Phone No                           : Email ID                                   :");
+		char space[20] = " ";
+        printf("\n===============================================================================================================================\n");
+        printf(":  %-3d : %-34s : %-34s : %-42s :", deleted.si_no, deleted.name, deleted.phone_numbers, deleted.email_addresses);
+        for (int k = 1; k < 5; k++)
+        {
+            printf("\n:  %-3s : %-34s : %-34s : %-42s :",space, space,deleted.phone_numbers[k], deleted.email_addresses[k]);
+        }
+		printf("\n===============================================================================================================================\n\n");
 
     return e_success;
 }
 
 //testing compile with both address_book_fops_.c and address_book_menu.c
-// int main() {
-//     AddressBook address_book;
-//     load_file(&address_book);
-//     add_contacts(&address_book);
-//     //search_contact(&address_book);
-//     delete_contact(&address_book);
-//     save_file(&address_book);
-// }
+int main() {
+    AddressBook address_book;
+    load_file(&address_book);
+    add_contacts(&address_book);
+    //search_contact(&address_book);
+    delete_contact(&address_book);
+    save_file(&address_book);
+}
